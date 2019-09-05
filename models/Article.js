@@ -3,25 +3,36 @@ var mongoose = require("mongoose");
 // Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
-// Create a new schema for articles
+// Using the Schema constructor, create a new UserSchema object
 var ArticleSchema = new Schema({
-  title: {
+  headline: {
     type: String,
     required: true
   },
-  link: {
+
+  url: {
     type: String,
     required: true
   },
-//   Object to store Note ID linking to Note model 
-  note: {
+
+  summary: {
+    type: String,
+    required: true
+  },
+
+  saved: {
+    type: Boolean,
+    default: false
+  },
+
+  // note object links to Note model to pair related notes to article
+  note: [{
     type: Schema.Types.ObjectId,
     ref: "Note"
-  }
+  }]
 });
 
-// Declare Schema as a model for mongoose
+// links above schema to Article Model
 var Article = mongoose.model("Article", ArticleSchema);
 
-// Export the Article model
 module.exports = Article;
